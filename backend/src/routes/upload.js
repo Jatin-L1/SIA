@@ -87,7 +87,7 @@ router.post('/', uploadLimiter, (req, res) => {
       const summary = await analyzeData(headers, rows);
       console.log('Groq AI response received');
 
-      console.log('Sending email via Resend...');
+      console.log('Sending email via EmailJS...');
       await sendSummaryEmail(email, summary);
       console.log('Email sent successfully to', email);
 
