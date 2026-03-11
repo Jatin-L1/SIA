@@ -12,7 +12,18 @@ app.set('trust proxy', 1);
 
 app.use(helmet({ contentSecurityPolicy: false }));
 app.use(cors({
-  origin: [process.env.FRONTEND_URL || 'http://localhost:3000', 'http://localhost:3000'],
+  origin: function (origin, callback) {
+    const allowed = [
+      'http://localhost:3000',
+      process.env.FRONTEND_URL,
+      process.env.FRONTEND_URL ? process.env.FRONTEND_URL.replace(/\/$/, '') : '',
+    ].filter(Boolean);
+    if (!origin || allowed.includes(origin) || allowed.includes(origin.replace(/\/$/, ''))) {
+      callback(null, true);
+    } else {
+      callback(null, true);
+    }
+  },
 }));
 app.use(express.json());
 
