@@ -87,15 +87,11 @@ router.post('/', uploadLimiter, (req, res) => {
       const summary = await analyzeData(headers, rows);
       console.log('Groq AI response received');
 
-      // Send response immediately, email in background
+      console.log('Sending email via Resend...');
+      await sendSummaryEmail(email, summary);
+      console.log('Email sent successfully to', email);
+
       res.json({ success: true, message: `Summary sent to ${email}` });
-
-      // Fire email in background (don't await)
-      console.log('Sending email in background...');
-      sendSummaryEmail(email, summary)
-        .then(() => console.log('Email sent successfully to', email))
-        .catch((emailErr) => console.error('Email failed:', emailErr.message));
-
     } catch (error) {
       console.error('Upload processing error:', error.message, error.stack);
       if (!res.headersSent) {

@@ -1,16 +1,6 @@
-const nodemailer = require('nodemailer');
+const { Resend } = require('resend');
 
-const transporter = nodemailer.createTransport({
-  host: 'smtp.gmail.com',
-  port: 465,
-  secure: true,
-  auth: {
-    user: process.env.GMAIL_USER,
-    pass: process.env.GMAIL_APP_PASSWORD,
-  },
-  pool: true,
-  maxConnections: 1,
-});
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 function markdownToHtml(text) {
   return text
@@ -81,12 +71,16 @@ async function sendSummaryEmail(to, summary) {
 </body>
 </html>`;
 
-  await transporter.sendMail({
-    from: '"Rabbitt AI" <' + process.env.GMAIL_USER + '>',
-    to,
+  const { error } = await resend.emails.send({
+    from: 'Rabbitt AI <onboarding@resend.dev>',
+    to: [to],
     subject: 'Your AI Data Summary — Rabbitt AI',
     html: htmlBody,
   });
+
+  if (error) {
+    throw new Error(error.message);
+  }
 }
 
 module.exports = { sendSummaryEmail };
