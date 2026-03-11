@@ -15,6 +15,18 @@ A full-stack web application that lets you upload any CSV or Excel file, analyze
 
 ---
 
+## Docker Hub Images
+
+| Image | Pull Command |
+|-------|-------------|
+| Backend | `docker pull jatinsharma2435/rabbitt-backend:latest` |
+| Frontend | `docker pull jatinsharma2435/rabbitt-frontend:latest` |
+
+- Backend: [hub.docker.com/r/jatinsharma2435/rabbitt-backend](https://hub.docker.com/r/jatinsharma2435/rabbitt-backend)
+- Frontend: [hub.docker.com/r/jatinsharma2435/rabbitt-frontend](https://hub.docker.com/r/jatinsharma2435/rabbitt-frontend)
+
+---
+
 ## Architecture
 
 ```
@@ -208,6 +220,41 @@ npm run dev
 ---
 
 ## Quick Start (Docker)
+
+### Option A: Pull pre-built images from Docker Hub (Fastest)
+
+```bash
+# 1. Pull both images
+docker pull jatinsharma2435/rabbitt-backend:latest
+docker pull jatinsharma2435/rabbitt-frontend:latest
+
+# 2. Create a backend .env file with your API keys
+cat > backend.env << EOF
+GROQ_API_KEY=your_groq_key
+EMAILJS_SERVICE_ID=your_service_id
+EMAILJS_TEMPLATE_ID=your_template_id
+EMAILJS_PUBLIC_KEY=your_public_key
+EMAILJS_PRIVATE_KEY=your_private_key
+FRONTEND_URL=http://localhost:3000
+PORT=8000
+EOF
+
+# 3. Run the backend
+docker run -d --name rabbitt-backend -p 8000:8000 --env-file backend.env jatinsharma2435/rabbitt-backend:latest
+
+# 4. Run the frontend
+docker run -d --name rabbitt-frontend -p 3000:3000 -e NEXT_PUBLIC_API_URL=http://localhost:8000 jatinsharma2435/rabbitt-frontend:latest
+```
+
+Open http://localhost:3000 in your browser.
+
+To stop:
+```bash
+docker stop rabbitt-backend rabbitt-frontend
+docker rm rabbitt-backend rabbitt-frontend
+```
+
+### Option B: Build from source with docker-compose
 
 ### 1. Ensure Docker Desktop is running
 
