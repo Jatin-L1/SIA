@@ -81,12 +81,19 @@ router.post('/', uploadLimiter, (req, res) => {
       }
 
       const { headers, rows } = parseFile(req.file.buffer, req.file.originalname);
+      console.log(`Parsed file: ${headers.length} columns, ${rows.length} rows`);
+
+      console.log('Calling Groq AI...');
       const summary = await analyzeData(headers, rows);
+      console.log('Groq AI response received');
+
+      console.log('Sending email...');
       await sendSummaryEmail(email, summary);
+      console.log('Email sent successfully');
 
       res.json({ success: true, message: `Summary sent to ${email}` });
     } catch (error) {
-      console.error('Upload processing error:', error.message);
+      console.error('Upload processing error:', error.message, error.stack);
       res.status(500).json({ success: false, error: 'Something went wrong while processing your file. Please try again.' });
     }
   });
