@@ -1,0 +1,278 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: linear-gradient(135deg, #0f0f1a 0%, #1a1a2e 100%);
+  color: #ffffff;
+  min-height: 100vh;
+}
+
+.container {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.logo {
+  font-size: 40px;
+  font-weight: 800;
+  color: #6C63FF;
+  letter-spacing: -1px;
+}
+
+.tagline {
+  color: #888;
+  font-size: 16px;
+  margin-top: 4px;
+}
+
+.card {
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(16px);
+  border-radius: 16px;
+  padding: 36px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.dropzone {
+  border: 2px dashed rgba(108, 99, 255, 0.4);
+  border-radius: 12px;
+  padding: 40px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.dropzone:hover,
+.dropzone.dragover {
+  border-color: #6C63FF;
+  background: rgba(108, 99, 255, 0.08);
+}
+
+.dropzone-icon {
+  font-size: 48px;
+  margin-bottom: 12px;
+}
+
+.dropzone-text {
+  color: #aaa;
+  font-size: 14px;
+}
+
+.file-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(108, 99, 255, 0.1);
+  padding: 12px 16px;
+  border-radius: 8px;
+  margin-top: 16px;
+}
+
+.file-info .checkmark {
+  color: #4ade80;
+  font-size: 20px;
+}
+
+.file-info .filename {
+  color: #e0e0e0;
+  font-size: 14px;
+  flex: 1;
+}
+
+.file-info .filesize {
+  color: #888;
+  font-size: 12px;
+}
+
+.accepted-formats {
+  color: #666;
+  font-size: 12px;
+  margin-top: 12px;
+  text-align: center;
+}
+
+.input-group {
+  position: relative;
+  margin-top: 24px;
+}
+
+.input-icon {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #888;
+  font-size: 18px;
+}
+
+.email-input {
+  width: 100%;
+  padding: 14px 14px 14px 42px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 10px;
+  color: #ffffff;
+  font-size: 15px;
+  outline: none;
+  transition: border 0.3s;
+}
+
+.email-input:focus {
+  border-color: #6C63FF;
+}
+
+.email-input::placeholder {
+  color: #666;
+}
+
+.submit-btn {
+  width: 100%;
+  padding: 16px;
+  margin-top: 24px;
+  background: #6C63FF;
+  color: #ffffff;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.submit-btn:hover:not(:disabled) {
+  background: #5a52e0;
+  transform: translateY(-1px);
+}
+
+.submit-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.spinner {
+  width: 20px;
+  height: 20px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top-color: #ffffff;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.success-box {
+  text-align: center;
+  padding: 30px;
+}
+
+.success-icon {
+  font-size: 56px;
+  margin-bottom: 16px;
+  animation: popIn 0.5s ease;
+}
+
+@keyframes popIn {
+  0% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.success-title {
+  color: #4ade80;
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.success-subtitle {
+  color: #888;
+  font-size: 14px;
+  margin-bottom: 24px;
+}
+
+.reset-btn {
+  padding: 12px 28px;
+  background: transparent;
+  color: #6C63FF;
+  border: 2px solid #6C63FF;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  transition: all 0.3s;
+}
+
+.reset-btn:hover {
+  background: rgba(108, 99, 255, 0.1);
+}
+
+.error-box {
+  text-align: center;
+  padding: 24px;
+  background: rgba(239, 68, 68, 0.08);
+  border-radius: 12px;
+  margin-top: 20px;
+}
+
+.error-icon {
+  font-size: 40px;
+  margin-bottom: 12px;
+}
+
+.error-text {
+  color: #ef4444;
+  font-size: 14px;
+  margin-bottom: 16px;
+}
+
+.try-again-btn {
+  padding: 12px 28px;
+  background: transparent;
+  color: #ef4444;
+  border: 2px solid #ef4444;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  transition: all 0.3s;
+}
+
+.try-again-btn:hover {
+  background: rgba(239, 68, 68, 0.1);
+}
+
+.footer-text {
+  text-align: center;
+  color: #444;
+  font-size: 12px;
+  margin-top: 32px;
+}

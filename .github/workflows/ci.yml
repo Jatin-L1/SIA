@@ -1,0 +1,66 @@
+name: CI
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  lint-backend:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 18
+      - name: Install dependencies
+        working-directory: ./backend
+        run: npm install
+      - name: Run ESLint
+        working-directory: ./backend
+        run: npx eslint src/
+
+  build-backend:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 18
+      - name: Install dependencies
+        working-directory: ./backend
+        run: npm install
+      - name: Smoke test
+        working-directory: ./backend
+        run: node -e "require('./src/index.js')"
+        timeout-minutes: 1
+        env:
+          GROQ_API_KEY: test
+          GMAIL_USER: test@test.com
+          GMAIL_APP_PASSWORD: test
+          FRONTEND_URL: http://localhost:3000
+          PORT: 8000
+
+  build-frontend:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 18
+      - name: Install dependencies
+        working-directory: ./frontend
+        run: npm install
+      - name: Build
+        working-directory: ./frontend
+        run: npm run build
+        env:
+          NEXT_PUBLIC_API_URL: http://localhost:8000
+
+  docker-build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build backend image
+        run: docker build -t rabbitt-backend ./backend
+      - name: Build frontend image
+        run: docker build -t rabbitt-frontend ./frontend
