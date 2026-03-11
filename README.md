@@ -394,9 +394,3 @@ The GitHub Actions workflow (`.github/workflows/ci.yml`) runs on every push and 
 5. Deploy
 
 After both are deployed, update `FRONTEND_URL` on Render to match your Vercel URL.
-
----
-
-## License
-
-MIT
